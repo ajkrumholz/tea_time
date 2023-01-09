@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :customers, only: [] do
-    resources :subscriptions, only: [:create]
+
+  resources :subscriptions
+  resources :customers do
+    resources :subscriptions
   end
 end

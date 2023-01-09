@@ -4,11 +4,11 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
   describe 'happy path' do
     describe 'when all required fields are present' do
       it 'returns status code 201 and a serialized response' do
-        customer = Customer.new(
-          first_name = "Gary",
-          last_name = "Busey",
-          email = "test@gmail.com",
-          address = "123 America St., Colorado City, CO"
+        customer = Customer.create!(
+          first_name: "Gary",
+          last_name: "Busey",
+          email: "test@gmail.com",
+          address: "123 America St., Colorado City, CO"
         )
         
         body = {
@@ -20,7 +20,7 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
           tea_ids: [1, 2]
         }
 
-        post customer_subscriptions_path(1), params: { body: body }
+        post customer_subscriptions_path(customer), params: { body: body }
 
         result = JSON.parse(response.body, symbolize_names: true)
         expect(result).to be_a Hash
