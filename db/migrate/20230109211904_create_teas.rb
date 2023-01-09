@@ -3,7 +3,7 @@ class CreateTeas < ActiveRecord::Migration[5.2]
     create_table :teas do |t|
       t.string :title
       t.string :description
-      t.temperature :int
+      t.integer :temperature
       t.time :brew_time
 
       t.timestamps
