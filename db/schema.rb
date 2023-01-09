@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2023_01_09_213410) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.string "title"
+    t.decimal "price", precision: 5, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,7 +55,7 @@ ActiveRecord::Schema.define(version: 2023_01_09_213410) do
     t.string "title"
     t.string "description"
     t.integer "temperature"
-    t.time "brew_time"
+    t.integer "brew_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
