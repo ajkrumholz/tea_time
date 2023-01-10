@@ -35,6 +35,7 @@ subscription_id - integer (required) - ID of subscription plan
 frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
 
 sample response
+```
 {
     "data": {
         "id": "1",
@@ -47,6 +48,7 @@ sample response
         }
     }
 }
+```
 
 ### cancel a subscription
 
@@ -62,6 +64,7 @@ status - string - 'cancelled'
 frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
 
 sample response
+```
 {
     "data": {
         "id": "2",
@@ -74,3 +77,4 @@ sample response
         }
     }
 }
+```
