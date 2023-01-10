@@ -31,16 +31,16 @@ run `rails db:seed` if seeded data is necessary
 
 ## Endpoints
 
-### create a new subscription
+### Create a new subscription
 
 `POST /api/v1/customer_subscriptions`
 
-fields (passed in body)
-customer_id - integer (required) - ID of subscribing customer
-subscription_id - integer (required) - ID of subscription plan
-frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
+#### Fields (passed in request body)
+- customer_id - integer (required) - ID of subscribing customer
+- subscription_id - integer (required) - ID of subscription plan
+- frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
 
-sample response
+#### Sample Response
 ```
 {
     "data": {
@@ -56,20 +56,20 @@ sample response
 }
 ```
 
-### cancel a subscription
+### Cancel a subscription
 
 `PATCH /api/v1/customer_subscriptions/{id}`
 
 This endpoint is intended to function as a way to cancel a subscription without deleting its record, allowing customers to view both active and cancelled subscriptions.
 
-params
-id - integer (required) - ID of the customer_subscription to be cancelled
+#### Params
+- id - integer (required) - ID of the customer_subscription to be cancelled
 
-fields (passed in body)
-status - string - 'cancelled'
-frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
+#### Fields (passed in request body)
+- status - string - 'cancelled'
+- frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
 
-sample response
+#### Sample response
 ```
 {
     "data": {
@@ -85,16 +85,16 @@ sample response
 }
 ```
 
-### get subscription information for a customer
+### Get subscription information for a customer
 
 `GET /api/v1/customers/{customer_id}/subscriptions`
 
 Returns a collection of subscriptions for a customer, including selected frequency and current status of that subscription, along with a list of ids for the teas included.
 
-params
-id - integer (required) - ID of the customer
+#### Params
+- id - integer (required) - ID of the customer
 
-sample response
+#### Sample response
 ```
 {
     "data": [
