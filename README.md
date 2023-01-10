@@ -1,29 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby 2.7.4
+Rails 5.2.8.1
+PostgreSQL 1.4.5
 
-Things you may want to cover:
+* Dependencies
 
-* Ruby version
-
-* System dependencies
+jsonapi-serializer
+rspec-rails
 
 * Configuration
 
+[fork this repository](https://github.com/ajkrumholz/tea_time)
+
+run `bundle install`
+
 * Database creation
+
+run `rails db:{create,migrate}
 
 * Database initialization
 
-* How to run the test suite
+run `rails db:seed` if seeded data is necessary
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Database Diagram
 
 ![database diagram](./app/assets/images/database_schema.png)
+
+* How to run the test suite
+
+`bundle exec rspec`
 
 ## Endpoints
 
@@ -78,5 +84,61 @@ sample response
             "status": "cancelled"
         }
     }
+}
+```
+
+### get subscription information for a customer
+
+`GET /api/v1/customers/{customer_id}/subscriptions`
+
+Returns a collection of subscriptions for a customer, including selected frequency and current status of that subscription, along with a list of ids for the teas included.
+
+params
+id - integer (required) - ID of the customer
+
+sample response
+```
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "subscriptions",
+            "attributes": {
+                "title": "Tea for Days",
+                "price": "54.99",
+                "frequency": "monthly",
+                "status": "active"
+            },
+            "relationships": {
+                "teas": {
+                    "data": [
+                        {
+                            "id": "1",
+                            "type": "tea"
+                        },
+                        {
+                            "id": "2",
+                            "type": "tea"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "id": "2",
+            "type": "subscriptions",
+            "attributes": {
+                "title": "Teas for Now",
+                "price": "10.99",
+                "frequency": "monthly",
+                "status": "cancelled"
+            },
+            "relationships": {
+                "teas": {
+                    "data": []
+                }
+            }
+        }
+    ]
 }
 ```
