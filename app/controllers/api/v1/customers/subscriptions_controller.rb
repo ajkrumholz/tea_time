@@ -4,7 +4,6 @@ class Api::V1::Customers::SubscriptionsController < ApplicationController
     subscriptions = customer.subscriptions
     hash = SubscriptionsSerializer
       .new(subscriptions, params: { customer_id: customer.id})
-      .serializable_hash
     render json: hash
   rescue ActiveRecord::RecordNotFound => e
     render json: { errors: e.message }
