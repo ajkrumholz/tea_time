@@ -4,7 +4,7 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     subscription = Subscription.find(params[:subscription_id])
     new_sub = CustomerSubscription.new(cust_sub_params)
     if new_sub.save
-      hash = CustomerSubscriptionSerializer.new(new_sub).serializable_hash
+      hash = CustomerSubscriptionSerializer.new(new_sub)
       render json: hash, status: 201
     end
   rescue ArgumentError
@@ -17,7 +17,7 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     sub = CustomerSubscription.find(params[:id])
     sub.update(params.permit(:status, :frequency))
     if sub.save
-      hash = CustomerSubscriptionSerializer.new(sub).serializable_hash
+      hash = CustomerSubscriptionSerializer.new(sub)
       render json: hash, status: 200
     end
   rescue ArgumentError
