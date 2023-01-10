@@ -7,6 +7,8 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     else
       render json: { errors: new_sub.errors.full_messages }, status: 400
     end
+  rescue ArgumentError
+    render json: { errors: ["Frequency is invalid"] }, status: 400
   end
 
   private

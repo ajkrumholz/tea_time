@@ -45,10 +45,11 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
   end
 
   describe 'sad path' do
-    it 'if an attribute is missing' do
+    it 'if an attribute is incorrect' do
       body = {
         customer_id: customer.id,
         subscription_id: subscription.id,
+        frequency: 'daily'
       }
 
       post "/api/v1/customer_subscriptions", params: body
@@ -61,8 +62,7 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
     it 'if a customer doesnt exist' do
       body = {
         customer_id: 9999,
-        subscription_id: subscription.id,
-        frequency: 'monthly'
+        subscription_id: subscription.id
       }
 
       post "/api/v1/customer_subscriptions", params: body
