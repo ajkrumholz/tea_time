@@ -12,9 +12,22 @@ RSpec.describe 'updating a customer_subscription' do
 
         body = { status: "cancelled" }
         patch "/api/v1/customer_subscriptions/#{new_sub.id}", params: body
-
+        expect(response).to be_successful
         result = JSON.parse(response.body, symbolize_names: true)
-        require 'pry'; binding.pry
+
+        data = result[:data]
+        expect(data).to be_a Hash
+        expect(data).to have_key :id
+        expect(data).to have_key :type
+        expect(data).to have_key :attributes
+
+        attributes = data[:attributes]
+
+        expect(attributes).to have_key :customer_id
+        expect(attributes).to have_key :subscription_id
+        expect(attributes).to have_key :frequency
+        expect(attributes).to have_key :status
+        expect(attributes[:status]).to eq("cancelled")
       end
     end
 

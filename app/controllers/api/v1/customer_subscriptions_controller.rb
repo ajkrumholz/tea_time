@@ -10,10 +10,23 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
   rescue ArgumentError
     render json: { errors: ["Frequency is invalid"] }, status: 400
   end
+  
+  def update
+    sub = CustomerSubscription.find(params[:id])
+    sub.update(params.permit(:status, :frequency))
+    if sub.save
+      hash = CustomerSubscriptionSerializer.new(sub).serializable_hash
+      render json: hash, status: 200
+    else
+      render json: { errors: ["Record not updated"] + sub.errors.full_messages }, status: 304
+    end
+  rescue ArgumentError
+    render json: { errors: ["Status or Frequency is invalid, record not updated"] }, status: 304
+  end
 
   private
   
   def cust_sub_params
-    params.permit(:customer_id, :subscription_id, :frequency, :status)
+    params.permit(:customer_id, :subscription_id, :frequency)
   end
 end
