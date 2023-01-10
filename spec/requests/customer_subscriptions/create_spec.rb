@@ -10,8 +10,7 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
         body = {
           customer_id: customer.id,
           subscription_id: subscription.id,
-          frequency: 'monthly',
-          status: 'active'
+          frequency: 'monthly'
         }
 
         post "/api/v1/customer_subscriptions", params: body
@@ -50,7 +49,6 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
       body = {
         customer_id: customer.id,
         subscription_id: subscription.id,
-        frequency: 'monthly'
       }
 
       post "/api/v1/customer_subscriptions", params: body
@@ -64,8 +62,7 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
       body = {
         customer_id: 9999,
         subscription_id: subscription.id,
-        frequency: 'monthly',
-        status: 'active'
+        frequency: 'monthly'
       }
 
       post "/api/v1/customer_subscriptions", params: body
