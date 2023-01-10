@@ -52,7 +52,7 @@ sample response
 
 ### cancel a subscription
 
-'PATCH /api/v1/customer_subscriptions/{id}'
+`PATCH /api/v1/customer_subscriptions/{id}`
 
 This endpoint is intended to function as a way to cancel a subscription without deleting its record, allowing customers to view both active and cancelled subscriptions.
 
