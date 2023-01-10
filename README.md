@@ -4,30 +4,30 @@
 - Rails 5.2.8.1
 - PostgreSQL 1.4.5
 
-## Dependencies
+### Dependencies
 
 - jsonapi-serializer
 - rspec-rails
 
-## Configuration
+### Configuration
 
 [Fork this repository](https://github.com/ajkrumholz/tea_time)
 
 run `bundle install`
 
-## Database creation
+### Database creation
 
 run `rails db:{create,migrate}`
 
-## Database initialization
+### Database initialization
 
 run `rails db:seed` if seeded data is necessary
 
-## Database Diagram
+### Database Diagram
 
 ![database diagram](./app/assets/images/database_schema.png)
 
-## Run the test suite
+### Run the test suite
 
 `bundle exec rspec`
 
