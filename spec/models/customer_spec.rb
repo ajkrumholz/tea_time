@@ -22,7 +22,7 @@ RSpec.describe Customer do
     teas.each do |tea|
       expect(customer.teas).to include(tea)
     end
-    
+
     expect(customer.teas).not_to include(other_tea)
   end
 end
