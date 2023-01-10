@@ -5,7 +5,7 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
       hash = CustomerSubscriptionSerializer.new(new_sub).serializable_hash
       render json: hash, status: 201
     else
-      render json: new_sub.errors.full_messages
+      render json: { errors: new_sub.errors.full_messages }, status: 400
     end
   end
 
