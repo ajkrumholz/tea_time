@@ -9,13 +9,19 @@ RSpec.describe 'updating a customer_subscription' do
       it 'allows the subscription status to change to cancelled without deleting the record' do
         customer.subscriptions << subscription
         new_sub = customer.customer_subscriptions.last
+
         expect(new_sub.status).to eq('active')
+
         body = { status: "cancelled" }
         patch "/api/v1/customer_subscriptions/#{new_sub.id}", params: body
+
         expect(response).to be_successful
+        
         result = JSON.parse(response.body, symbolize_names: true)
+        
         new_sub.reload
         expect(new_sub.status).to eq('cancelled')
+        
         data = result[:data]
         expect(data).to be_a Hash
         expect(data).to have_key :id
@@ -23,7 +29,6 @@ RSpec.describe 'updating a customer_subscription' do
         expect(data).to have_key :attributes
 
         attributes = data[:attributes]
-
         expect(attributes).to have_key :customer_id
         expect(attributes).to have_key :subscription_id
         expect(attributes).to have_key :frequency
@@ -37,6 +42,7 @@ RSpec.describe 'updating a customer_subscription' do
         it 'returns a 304 and an error' do
           customer.subscriptions << subscription
           new_sub = customer.customer_subscriptions.last
+
           expect(new_sub.status).to eq('active')
 
           body = { status: "in progress" }
@@ -50,11 +56,16 @@ RSpec.describe 'updating a customer_subscription' do
       end
 
       describe 'if record doesnt exist' do
-        it 'returns an error code' do
+        it 'returns an error' do
           body = { status: "in progress" }
           patch "/api/v1/customer_subscriptions/9999", params: body
 
           expect(response).to have_http_status 200
+
+          result = JSON.parse(response.body, symbolize_names: true)
+          expect(result).to have_key(:errors)
+
+          expect(result[:errors]).to eq("Couldn't find CustomerSubscription with 'id'=9999")
         end
       end
     end
