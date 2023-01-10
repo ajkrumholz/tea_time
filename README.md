@@ -36,9 +36,9 @@ run `rails db:seed` if seeded data is necessary
 `POST /api/v1/customer_subscriptions`
 
 #### Fields (passed in request body)
-- customer_id - integer (required) - ID of subscribing customer
-- subscription_id - integer (required) - ID of subscription plan
-- frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
+- `customer_id` - integer (required) - ID of subscribing customer
+- `subscription_id` - integer (required) - ID of subscription plan
+- `frequency` - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
 
 #### Sample Request Body
 
@@ -73,11 +73,11 @@ run `rails db:seed` if seeded data is necessary
 This endpoint is intended to function as a way to cancel a subscription without deleting its record. It can also be used to change the frequency of a customer's subscription.
 
 #### Params
-- id - integer (required) - ID of the customer_subscription to be cancelled
+- `id` - integer (required) - ID of the customer_subscription to be cancelled
 
 #### Fields (passed in request body)
-- status - string - 'cancelled'
-- frequency - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
+- `status` - string - 'cancelled'
+- `frequency` - string - available options: 'weekly', 'monthly, 'yearly' - default: 'monthly'
 
 #### Sample Request Body
 ```
@@ -110,7 +110,7 @@ POST /api/v1/customer_subscriptions/1
 Returns a collection of subscriptions for a customer, including selected frequency and current status of that subscription, along with a list of ids for the teas included.
 
 #### Params
-- id - integer (required) - ID of the customer
+- `id` - integer (required) - ID of the customer
 
 #### Sample Request
 `GET /api/v1/customers/1/subscriptions`
