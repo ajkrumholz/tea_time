@@ -48,6 +48,15 @@ RSpec.describe 'updating a customer_subscription' do
           expect(new_sub.status).to eq('active')
         end
       end
+
+      describe 'if record doesnt exist' do
+        it 'returns an error code' do
+          body = { status: "in progress" }
+          patch "/api/v1/customer_subscriptions/9999", params: body
+
+          expect(response).to have_http_status 204
+        end
+      end
     end
   end
 end

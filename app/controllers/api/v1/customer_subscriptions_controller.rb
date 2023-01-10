@@ -17,11 +17,11 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     if sub.save
       hash = CustomerSubscriptionSerializer.new(sub).serializable_hash
       render json: hash, status: 200
-    else
-      render json: { errors: ["Record not updated"] + sub.errors.full_messages }, status: 304
     end
   rescue ArgumentError
     render json: { errors: ["Status or Frequency is invalid, record not updated"] }, status: 304
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: ["Record not found, check the ID"]}, status: 204
   end
 
   private
