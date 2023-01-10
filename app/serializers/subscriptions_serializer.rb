@@ -3,7 +3,7 @@ class SubscriptionsSerializer
   
   attributes :title,
              :price
-             
+  
   attribute :frequency do |object, params|
     sub = CustomerSubscription.find_by(
       subscription_id: object.id, 

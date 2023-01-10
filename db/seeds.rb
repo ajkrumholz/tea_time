@@ -19,9 +19,37 @@ subscription = Subscription.create!(
   price: 54.99
 )
 
+CustomerSubscription.create!(
+  subscription_id: subscription.id,
+  customer_id: customer.id
+)
+
+cancelled_sub = Subscription.create!(
+  title: "Teas for Now",
+  price: 10.99
+)
+
+CustomerSubscription.create!(
+  subscription_id: cancelled_sub.id,
+  customer_id: customer.id,
+  status: 'cancelled'
+)
+
+Subscription.create!(
+  title: "Tea Forever",
+  price: 10.99
+)
+
 subscription.teas << Tea.create!(
   title: "Mellow Mint",
   description: "Hauntingly minty",
   temperature: 150,
-  brew_time: 
+  brew_time: 300
+)
+
+subscription.teas << Tea.create!(
+  title: "Red Zinger",
+  description: "Citric acid + red number five = crazy delicious!",
+  temperature: 120,
+  brew_time: 500
 )
