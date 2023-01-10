@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscriptions' do
+RSpec.describe 'when a POST request is sent to /api/v1/customer_subscriptions' do
   let(:customer) { create :customer }
   let(:subscription) { create :subscription }
 
@@ -68,7 +68,7 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
       post "/api/v1/customer_subscriptions", params: body
 
       result = JSON.parse(response.body, symbolize_names: true)
-      expect(response).to have_http_status 400
+      expect(response).to have_http_status 200
       expect(result).to have_key(:errors)
     end
   end

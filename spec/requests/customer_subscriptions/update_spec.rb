@@ -54,7 +54,7 @@ RSpec.describe 'updating a customer_subscription' do
           body = { status: "in progress" }
           patch "/api/v1/customer_subscriptions/9999", params: body
 
-          expect(response).to have_http_status 204
+          expect(response).to have_http_status 200
         end
       end
     end

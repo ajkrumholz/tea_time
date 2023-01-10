@@ -1,5 +1,7 @@
 class Api::V1::CustomerSubscriptionsController < ApplicationController
   def create
+    customer = Customer.find(params[:customer_id])
+    subscription = Subscription.find(params[:subscription_id])
     new_sub = CustomerSubscription.new(cust_sub_params)
     if new_sub.save
       hash = CustomerSubscriptionSerializer.new(new_sub).serializable_hash
@@ -9,6 +11,8 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     end
   rescue ArgumentError
     render json: { errors: ["Frequency is invalid"] }, status: 400
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { errors: [e.message] }
   end
   
   def update
@@ -20,8 +24,8 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     end
   rescue ArgumentError
     render json: { errors: ["Status or Frequency is invalid, record not updated"] }, status: 304
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: ["Record not found, check the ID"]}, status: 204
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { errors: e.message }
   end
 
   private
