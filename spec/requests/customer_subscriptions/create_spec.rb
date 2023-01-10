@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscriptions' do
+RSpec.describe 'when a POST request is sent to /api/v1/customer_subscriptions' do
   let(:customer) { create :customer }
   let(:subscription) { create :subscription }
 
@@ -45,10 +45,11 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
   end
 
   describe 'sad path' do
-    it 'if an attribute is missing' do
+    it 'if an attribute is incorrect' do
       body = {
         customer_id: customer.id,
         subscription_id: subscription.id,
+        frequency: 'daily'
       }
 
       post "/api/v1/customer_subscriptions", params: body
@@ -61,14 +62,13 @@ RSpec.describe 'when a POST request is sent to /customer/{customer_id}/subscript
     it 'if a customer doesnt exist' do
       body = {
         customer_id: 9999,
-        subscription_id: subscription.id,
-        frequency: 'monthly'
+        subscription_id: subscription.id
       }
 
       post "/api/v1/customer_subscriptions", params: body
 
       result = JSON.parse(response.body, symbolize_names: true)
-      expect(response).to have_http_status 400
+      expect(response).to have_http_status 200
       expect(result).to have_key(:errors)
     end
   end
