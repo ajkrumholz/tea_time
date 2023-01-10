@@ -18,3 +18,10 @@ subscription = Subscription.create!(
   title: "Tea for Days",
   price: 54.99
 )
+
+subscription.teas << Tea.create!(
+  title: "Mellow Mint",
+  description: "Hauntingly minty",
+  temperature: 150,
+  brew_time: 
+)

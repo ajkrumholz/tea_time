@@ -23,6 +23,8 @@ Things you may want to cover:
 
 * ...
 
+![database diagram](./app/assets/images/database_schema.png)
+
 ## Endpoints
 
 ### create a new subscription
