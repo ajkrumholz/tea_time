@@ -11,13 +11,13 @@ rspec-rails
 
 * Configuration
 
-[fork this repository](https://github.com/ajkrumholz/tea_time)
+[Fork this repository](https://github.com/ajkrumholz/tea_time)
 
 run `bundle install`
 
 * Database creation
 
-run `rails db:{create,migrate}
+run `rails db:{create,migrate}`
 
 * Database initialization
 
