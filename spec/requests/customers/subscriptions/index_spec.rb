@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'customer subscriptions index' do
-  describe 'when a GET request is sent to /api/v1/customers/{id}/subscriptions' do
+  describe 'when a GET request is sent to /api/v1/customers/subscriptions' do
     describe 'happy path' do
       it 'returns a response containing active and cancelled subscriptions' do
         customer = create :customer
@@ -16,7 +16,7 @@ RSpec.describe 'customer subscriptions index' do
 
         customer.customer_subscriptions.last.update(status: 'cancelled')
 
-        get "/api/v1/customers/#{customer.id}/subscriptions"
+        get "/api/v1/customers/subscriptions", params: { customer_id: customer.id }
         expect(response).to be_successful
 
         result = JSON.parse(response.body, symbolize_names: true)
@@ -68,7 +68,7 @@ RSpec.describe 'customer subscriptions index' do
         it 'returns an empty response' do
           customer = create :customer
       
-          get "/api/v1/customers/#{customer.id}/subscriptions"
+          get "/api/v1/customers/subscriptions", params: { customer_id: customer.id}
           expect(response).to be_successful
 
           result = JSON.parse(response.body, symbolize_names: true)
@@ -80,7 +80,7 @@ RSpec.describe 'customer subscriptions index' do
 
       describe 'if a customer does not exist' do
         it 'returns an error message' do
-          get '/api/v1/customers/9999/subscriptions'
+          get '/api/v1/customers/subscriptions', params: { customer_id: 9999}
           expect(response).to be_successful
 
           result = JSON.parse(response.body, symbolize_names: true)
