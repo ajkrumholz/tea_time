@@ -4,7 +4,7 @@ RSpec.describe 'updating a customer_subscription' do
   let(:customer) { create :customer }
   let(:subscription) { create :subscription }
 
-  describe 'when a PATCH request is sent to /api/v1/customer_subscriptions/{id}' do
+  describe 'when a PATCH request is sent to /api/v1/customer_subscriptions/' do
     describe 'happy path' do
       it 'allows the subscription status to change to cancelled without deleting the record' do
         customer.subscriptions << subscription
@@ -12,8 +12,8 @@ RSpec.describe 'updating a customer_subscription' do
 
         expect(new_sub.status).to eq('active')
 
-        body = { status: "cancelled" }
-        patch "/api/v1/customer_subscriptions/#{new_sub.id}", params: body
+        body = { status: "cancelled", customer_subscription_id: new_sub.id }
+        patch "/api/v1/customer_subscriptions/", params: body
 
         expect(response).to be_successful
         
@@ -45,8 +45,8 @@ RSpec.describe 'updating a customer_subscription' do
 
           expect(new_sub.status).to eq('active')
 
-          body = { status: "in progress" }
-          patch "/api/v1/customer_subscriptions/#{new_sub.id}", params: body
+          body = { status: "in progress", customer_subscription_id: new_sub.id }
+          patch "/api/v1/customer_subscriptions", params: body
 
           expect(response).to have_http_status 304
 
@@ -57,8 +57,8 @@ RSpec.describe 'updating a customer_subscription' do
 
       describe 'if record doesnt exist' do
         it 'returns an error' do
-          body = { status: "in progress" }
-          patch "/api/v1/customer_subscriptions/9999", params: body
+          body = { status: "cancelled", customer_subscription_id: 9999 }
+          patch "/api/v1/customer_subscriptions", params: body
 
           expect(response).to have_http_status 200
 
