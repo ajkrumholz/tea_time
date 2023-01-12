@@ -39,7 +39,7 @@ RSpec.describe 'updating a customer_subscription' do
 
     describe 'sad path' do
       describe 'if status is passed incorrectly' do
-        it 'returns a 304 and an error' do
+        it 'returns a 400 and an error' do
           customer.subscriptions << subscription
           new_sub = customer.customer_subscriptions.last
 
@@ -48,7 +48,7 @@ RSpec.describe 'updating a customer_subscription' do
           body = { status: "in progress", customer_subscription_id: new_sub.id }
           patch "/api/v1/customer_subscriptions", params: body
 
-          expect(response).to have_http_status 304
+          expect(response).to have_http_status 400
 
           new_sub.reload
           expect(new_sub.status).to eq('active')
@@ -60,7 +60,7 @@ RSpec.describe 'updating a customer_subscription' do
           body = { status: "cancelled", customer_subscription_id: 9999 }
           patch "/api/v1/customer_subscriptions", params: body
 
-          expect(response).to have_http_status 200
+          expect(response).to have_http_status 400
 
           result = JSON.parse(response.body, symbolize_names: true)
           expect(result).to have_key(:errors)
