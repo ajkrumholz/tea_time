@@ -14,7 +14,7 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
   end
   
   def update
-    sub = CustomerSubscription.find(params[:id])
+    sub = CustomerSubscription.find(params[:customer_subscription_id])
     sub.update(params.permit(:status, :frequency))
     if sub.save
       hash = CustomerSubscriptionSerializer.new(sub)
