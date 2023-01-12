@@ -81,7 +81,6 @@ RSpec.describe 'when a POST request is sent to /api/v1/customer_subscriptions' d
       post "/api/v1/customer_subscriptions", params: body
 
       result = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
       expect(response).to have_http_status 400
       expect(result).to have_key(:errors)
     end
